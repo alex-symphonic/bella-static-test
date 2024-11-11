@@ -1,0 +1,44 @@
+---
+import '@/styles/globals.css'
+import Layout from '../layouts/Layout.astro';
+import { Header } from '@/components/Header';
+import { Hero } from '@/components/Hero';
+import { Services } from '@/components/Services';
+import { Insurance } from '@/components/Insurance';
+import { Contact } from '@/components/Contact';
+import { Footer } from '@/components/Footer';
+---
+
+<Layout title="Bella Vista Medical Group - Your Health Is Our Priority">
+  <Header client:load />
+  <main>
+    <Hero />
+    <Services />
+    <Insurance />
+    <Contact />
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const smoothScroll = (e: Event) => {
+      e.preventDefault();
+      const target = e.target as HTMLAnchorElement;
+      const id = target.getAttribute('href');
+      if (!id || !id.startsWith('#')) return;
+      
+      const element = document.querySelector(id);
+      if (!element) return;
+
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    };
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', smoothScroll);
+    });
+  });
+</script>
